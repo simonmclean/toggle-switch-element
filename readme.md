@@ -33,15 +33,13 @@ Here are the custom properties available, along with their initial values, which
 The element itself emits a `change` event when the `checked` property changes.
 
 ```javascript
-document.querySelector('toggle-switch').addEventListener('change', (event) => {
-    console.log(event)
-})
+document.querySelectorAll('toggle-switch').addEventListener('change', console.log);
 ```
 
 ### Example implementation:
 
 ```html
-<script src="node_modules/last-toggle-switch/dist/ToggleSwitch.dist.js"></script>
+<script type="module" src="path/to/toggle-switch/dist/toggle-switch.js"></script>
 
 <toggle-switch>Toggle Switch</toggle-switch>
 
