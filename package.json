@@ -1,0 +1,23 @@
+{
+    "name": "toggle-switch",
+    "version": "0.1.0",
+    "description": "",
+    "main": "dist/toggle-switch.js",
+    "scripts": {
+        "dev": "polymer serve",
+        "build": "webpack"
+    },
+    "keywords": [],
+    "author": "Simon McLean",
+    "license": "ISC",
+    "dependencies": {
+        "lit-element": "^2.3.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "babel-loader": "^8.1.0",
+        "webpack": "^4.42.0",
+        "webpack-cli": "^3.3.11"
+    }
+}
