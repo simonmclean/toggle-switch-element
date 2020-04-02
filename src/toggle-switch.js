@@ -1,93 +1,21 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from "lit-element";
 
 class ToggleSwitch extends LitElement {
-
-    static get properties() {
-        return {
-            checked: {
-                type: Boolean,
-                reflect: true,
-            },
-            'aria-checked': {
-                type: String,
-                reflect: true
-            },
-            role: {
-                type: String,
-            },
-            tabindex: {
-                type: Number
-            },
-            disabled: {
-                type: Boolean,
-            },
-        };
-    }
-
-    constructor() {
-        super()
-    }
-
-    connectedCallback() {
-        this.addEventListener('keyup', this.keyUpHandler)
-        if (!this.hasAttribute('role')) {
-            this.setAttribute('role', 'checkbox')
-        }
-        if (!this.hasAttribute('checked')) {
-            this.checked = false
-        }
-        if (!this.hasAttribute('aria-checked')) {
-            this.setAttribute('aria-checked', this.checked || "false")
-        }
-        if (!this.hasAttribute('tabindex')) {
-            this.setAttribute('tabindex', 0)
-        }
-    }
-
-    disconnectedCallback() {
-        this.removeEventListener('keyup', this.keyUpHandler)
-    }
-
-    clickHandler(event) {
-        if (!this.disabled) {
-            event.preventDefault()
-            this.toggleChecked()
-        }
-    }
-
-    keyUpHandler(event) {
-        if (event.keyCode === 32 && !this.disabled) {
-            event.preventDefault()
-            this.toggleChecked()
-        }
-    }
-
-    toggleChecked() {
-        const newValue = !this.checked
-        this.checked = newValue
-        this['aria-checked'] = newValue
-        this.dispatchEvent(new Event('change', {
-            bubbles: true,
-            composed: true
-        }));
-    }
-
-    render() {
-        return html `
-        <style>
+    static get styles() {
+        return css`
             :host {
                 --toggle-switch-disabled-opacity: 0.5;
                 --toggle-switch-toggle-duration: 0.3s;
-            
+
                 --toggle-switch-track-color: #cecece;
                 --toggle-switch-track-shadow: none;
                 --toggle-switch-track-border: none;
                 --toggle-switch-track-height: 75%;
-                
+
                 --toggle-switch-knob-color: #333333;
                 --toggle-switch-knob-shadow: none;
                 --toggle-switch-knob-border: none;
-                
+
                 display: inline-block;
                 font-size: 100%;
             }
@@ -100,7 +28,8 @@ class ToggleSwitch extends LitElement {
             :host([checked]) #knob {
                 transform: translateX(70%);
             }
-            #track, #knob {
+            #track,
+            #knob {
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -143,18 +72,97 @@ class ToggleSwitch extends LitElement {
                 box-shadow: var(--toggle-switch-knob-shadow);
                 transition: transform var(--toggle-switch-toggle-duration);
             }
-        </style>
-        <span id="wrapper" @click="${this.clickHandler}">
-            <label>
-                <slot></slot>
-            </label>
-            <span id="inner-wrap">
-                <span id="track"></span>
-                <span id="knob"></span>
+        `;
+    }
+
+    static get properties() {
+        return {
+            checked: {
+                type: Boolean,
+                reflect: true,
+            },
+            "aria-checked": {
+                type: String,
+                reflect: true,
+            },
+            role: {
+                type: String,
+            },
+            tabindex: {
+                type: Number,
+            },
+            disabled: {
+                type: Boolean,
+            },
+        };
+    }
+
+    constructor() {
+        super();
+        console.log(this);
+    }
+
+    connectedCallback() {
+        console.log("connected");
+        this.addEventListener("keyup", this.keyUpHandler);
+        if (!this.hasAttribute("role")) {
+            this.setAttribute("role", "checkbox");
+        }
+        if (!this.hasAttribute("checked")) {
+            this.checked = false;
+        }
+        if (!this.hasAttribute("aria-checked")) {
+            this.setAttribute("aria-checked", this.checked || "false");
+        }
+        if (!this.hasAttribute("tabindex")) {
+            this.setAttribute("tabindex", 0);
+        }
+    }
+
+    disconnectedCallback() {
+        this.removeEventListener("keyup", this.keyUpHandler);
+    }
+
+    clickHandler(event) {
+        if (!this.disabled) {
+            event.preventDefault();
+            this.toggleChecked();
+        }
+    }
+
+    keyUpHandler(event) {
+        if (event.keyCode === 32 && !this.disabled) {
+            event.preventDefault();
+            this.toggleChecked();
+        }
+    }
+
+    toggleChecked() {
+        const newValue = !this.checked;
+        this.checked = newValue;
+        this["aria-checked"] = newValue;
+        this.dispatchEvent(
+            new Event("change", {
+                bubbles: true,
+                composed: true,
+            })
+        );
+    }
+
+    render() {
+        return html`
+            <style></style>
+            <span id="wrapper" @click="${this.clickHandler}">
+                <label>
+                    <slot></slot>
+                </label>
+                <span id="inner-wrap">
+                    <span id="track"></span>
+                    <span id="knob"></span>
+                </span>
             </span>
-        </span>
-        `
+        `;
     }
 }
 
-customElements.define('toggle-switch', ToggleSwitch)
+customElements.define("toggle-switch", ToggleSwitch);
