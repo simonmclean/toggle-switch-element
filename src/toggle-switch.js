@@ -103,7 +103,7 @@ class ToggleSwitch extends LitElement {
     }
 
     connectedCallback() {
-        console.log("connected");
+        super.connectedCallback();
         this.addEventListener("keyup", this.keyUpHandler);
         if (!this.hasAttribute("role")) {
             this.setAttribute("role", "checkbox");
@@ -120,6 +120,7 @@ class ToggleSwitch extends LitElement {
     }
 
     disconnectedCallback() {
+        super.disconnectedCallback();
         this.removeEventListener("keyup", this.keyUpHandler);
     }
 
@@ -151,10 +152,9 @@ class ToggleSwitch extends LitElement {
 
     render() {
         return html`
-            <style></style>
             <span id="wrapper" @click="${this.clickHandler}">
                 <label>
-                    <slot></slot>
+                    <slot />
                 </label>
                 <span id="inner-wrap">
                     <span id="track"></span>

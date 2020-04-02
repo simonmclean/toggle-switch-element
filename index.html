@@ -1,10 +1,29 @@
-<head>
-    <title>Toggle Switch Element</title>
-    <script type="module" src="src/toggle-switch.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
-<body>
-    <div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>🎚 Toggle Switch</title>
+        <script type="module" src="src/toggle-switch.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
         <toggle-switch>Testing</toggle-switch>
-    </div>
-</body>
+        <style>
+            toggle-switch {
+                --toggle-switch-track-color: #e8e2e2;
+                --toggle-switch-knob-color: rebeccapurple;
+                --toggle-switch-toggle-duration: 0.15s;
+                color: #262626;
+                transition: color 0.3s;
+            }
+            toggle-switch[checked] {
+                --toggle-switch-track-color: #dfc5e6;
+            }
+            toggle-switch:focus {
+                outline: none;
+                color: rebeccapurple;
+            }
+        </style>
+
+    </body>
+</html>
