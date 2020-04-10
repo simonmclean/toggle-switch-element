@@ -80,6 +80,16 @@ class ToggleSwitch extends LitElement {
             checked: {
                 type: Boolean,
                 reflect: true,
+                converter: {
+                    fromAttribute(value) {
+                        return value != null;
+                    },
+                    toAttribute(value) {
+                        return value
+                            ? "checked"
+                            : null;
+                    }
+                },
             },
             "aria-checked": {
                 type: String,
@@ -99,24 +109,14 @@ class ToggleSwitch extends LitElement {
 
     constructor() {
         super();
-        console.log(this);
     }
 
     connectedCallback() {
         super.connectedCallback();
         this.addEventListener("keyup", this.keyUpHandler);
-        if (!this.hasAttribute("role")) {
-            this.setAttribute("role", "checkbox");
-        }
-        if (!this.hasAttribute("checked")) {
-            this.checked = false;
-        }
-        if (!this.hasAttribute("aria-checked")) {
-            this.setAttribute("aria-checked", this.checked || "false");
-        }
-        if (!this.hasAttribute("tabindex")) {
-            this.setAttribute("tabindex", 0);
-        }
+        this.setAttribute("role", this.role || "checkbox");
+        this.setAttribute("aria-checked", this.checked || false);
+        this.setAttribute("tabindex", this.tabindex || "0");
     }
 
     disconnectedCallback() {
@@ -140,8 +140,8 @@ class ToggleSwitch extends LitElement {
 
     toggleChecked() {
         const newValue = !this.checked;
-        this.checked = newValue;
         this["aria-checked"] = newValue;
+        this.checked = newValue;
         this.dispatchEvent(
             new Event("change", {
                 bubbles: true,
